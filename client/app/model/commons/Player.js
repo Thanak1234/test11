@@ -1,0 +1,33 @@
+Ext.define('UI.model.commons.Player', {
+    extend: 'Ext.data.Model',
+    idProperty: 'id',
+    fields: [
+        { name: 'id', type: 'string' },
+        { name: 'playerCardType', type: 'string' },
+        { name: 'playerCardNo', type: 'string' },
+        { name: 'playerDateIssue', type: 'date' },
+        { name: 'playerDateExpired', type: 'date' },
+        { name: 'playerName', type: 'string' },
+        { name: 'playerNickName', type: 'string' },
+        { name: 'playerGender', type: 'string' },
+        { name: 'playerNationality', type: 'string' },
+        { name: 'playerCountry', type: 'string' },
+        { name: 'playerPhone', type: 'string' },
+        { name: 'playerAddress', type: 'string' },
+        { name: 'createdDate', type: 'date' },
+        { name: 'createdBy', type: 'string' },
+        { name: 'modifiedDate', type: 'date' },
+        { name: 'modifiedBy', type: 'string' },
+        { name: 'driverLicense', type: 'string' },
+        { name: 'gercCardNo', type: 'string' },
+        { name: 'idCard', type: 'string' },
+        { name: 'passport', type: 'string' },
+        { name: 'others', type: 'string' },
+        { name: 'dob', type: 'date', format: 'm-d-Y' },
+        { name: 'noCard', type: 'string' },
+        { name: 'activePlayerId', type: 'int' },
+        { name: 'mergedLogId', type: 'int' },
+        { name: 'ecdd', type: 'bool' },
+        
+    ]
+});

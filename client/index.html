@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html manifest="">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <frame-options policy="SAMEORIGIN" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="">
+    <link href="resources/css/style.css" type="text/css" rel="stylesheet" />
+    <title>AML UI</title>
+    <script type="text/javascript">
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function deleteCookie(cname) {
+            document.cookie = cname+'=; Max-Age=-99999999;'; 
+        }
+    </script>
+
+    <!--
+    <script type="text/javascript">
+        var Ext = Ext || {}; // Ext namespace won't be defined yet...
+
+        // This function is called by the Microloader after it has performed basic
+        // device detection. The results are provided in the "tags" object. You can
+        // use these tags here or even add custom tags. These can be used by platform
+        // filters in your manifest or by platformConfig expressions in your app.
+        //
+        Ext.beforeLoad = function (tags) {
+            var s = location.search,  // the query string (ex "?foo=1&bar")
+                profile;
+
+            // For testing look for "?classic" or "?modern" in the URL to override
+            // device detection default.
+            //
+            if (s.match(/\bclassic\b/)) {
+                profile = 'classic';
+            }
+            else if (s.match(/\bmodern\b/)) {
+                profile = 'modern';
+            }
+            else {
+                profile = tags.desktop ? 'classic' : 'modern';
+                //profile = tags.phone ? 'modern' : 'classic';
+            }
+
+            Ext.manifest = profile; // this name must match a build profile name
+
+            // This function is called once the manifest is available but before
+            // any data is pulled from it.
+            //
+            //return function (manifest) {
+                // peek at / modify the manifest object
+            //};
+        };
+    </script>
+    -->
+    <script type="text/javascript" src="resources/js/jquery-1.6.2.min.js"></script>
+    <!-- The line below must be kept intact for Sencha Cmd to build your application -->
+    <script id="microloader" data-app="2e3e4877-d7c7-4c41-b198-30a5f22c287d" type="text/javascript" src="bootstrap.js"></script>
+
+</head>
+<body></body>
+</html>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-infoPathSolution solutionVersion="1.0.0.144" PIVersion="1.0.0.0" href="file:///D:\CAFIU%20Project\Current_Schema\Casino%20Templates\Casino_CTRv1_0.xsn" name="urn:schemas-microsoft-com:office:infopath:CTRv1-3:" language="en-us" productVersion="15.0.0" ?>
+<?mso-application progid="InfoPath.Document" versionProgid="InfoPath.Document.2"?>
+<LCTR xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:is="http://www.nbc.org.kh" xmlns:my="http://schemas.microsoft.com/office/infopath/2003/myXSD/2012-03-05T04:45:45" xmlns:xd="http://schemas.microsoft.com/office/infopath/2003">
+	<ReportingEntityID>310001</ReportingEntityID>
+	<Report> 
+	#set($nextId = $data.lastId +1) 
+	#foreach( $tran in $data.trans ) 
+		#set($String = "abc") 
+		#set($reportIdentfier = $tran.reportIdentifier) 
+		#set ($blankPos = $tran.playerName.indexOf(' ')) 
+		#set ($afterBlankPos = $blankPos + 1) 
+		#if($blankPos == -1) 
+			#set ($firstName = $tran.playerName) 
+		#else 
+			#set ($firstName = $tran.playerName.substring(0, $blankPos)) 
+		#end 
+		#if($blankPos == -1) 
+			#set ($lastName = 'N/A') 
+		#else 
+			#set ($lastName = $tran.playerName.substring($afterBlankPos, $tran.playerName.length())) 
+		#end 
+		#set($expiredDate = $data.helper.dateFormat($data.expiredDate, "yyyy-MM-dd")) 
+		#if($tran.dateExpired) 
+			#set($expiredDate = $tran.dateExpired) 
+		#end 
+		#if(!$data.helper.isBlank($tran.idCard)) 
+			#set($identifier = $String.format("<NationalD><NationalID>%s</NationalID><ExpireDate>%s</ExpireDate></NationalD>", $tran.idCard, $expiredDate)) 
+		#end 
+		#if(!$data.helper.isBlank($tran.passport)) 
+			#set($identifier = $String.format("<Passport><PassportNumber>%s</PassportNumber><CountryCodeType>%s</CountryCodeType><ExpireDate>%s</ExpireDate></Passport>", $tran.passport, $tran.isoCode, $expiredDate)) 
+		#end 
+		#if($data.helper.isBlank($tran.passport) && $data.helper.isBlank($tran.idCard)) 
+			#set($otherIdentifier = "N/A") 
+			#if(!$data.helper.isBlank($tran.others)) 
+				#set($otherIdentifier = $tran.others) 
+			#end 
+			#if(!$data.helper.isBlank($tran.driverLicense)) 
+				#set($otherIdentifier = $tran.driverLicense) 
+			#end 
+			#if(!$data.helper.isBlank($tran.gercCardNo)) 
+				#set($otherIdentifier = $tran.gercCardNo) 
+			#end 
+			#set($identifier = $String.format("<ValidIdentifier><ValidIdentifier>%s</ValidIdentifier><ValidIdentifierDescription>N/A</ValidIdentifierDescription></ValidIdentifier>", $otherIdentifier)) 
+		#end 
+		#set($transactionSeriesIndicator = false) 
+		#if($tran.transType == "MULTI") 
+			#set($transactionSeriesIndicator = true) 
+		#end                      
+		<ReportIdentifier>$reportIdentfier</ReportIdentifier>
+		<AmendedReportIndicator>false</AmendedReportIndicator>
+		<ReportPreparationDate>$tran.saveDate</ReportPreparationDate>
+		<ReportTransmissionDate>$tran.sentDate</ReportTransmissionDate>
+		<Transaction>
+			<TransactionDate>$tran.tranDate</TransactionDate>
+			<TransactionAmount>$String.format("%.2f", $tran.amount)</TransactionAmount>
+			<TransactionCurrencyCode>USD</TransactionCurrencyCode>
+			<TransactionSeriesIndicator>$transactionSeriesIndicator</TransactionSeriesIndicator>
+			<TransactionType>$tran.transactionCategory</TransactionType>
+			<BranchName>Head Office</BranchName>
+		</Transaction>
+		<TransactionParticipants>
+			<ParticipantType>
+				<Individual>
+					<Name>
+						<FirstName_Latin>$firstName</FirstName_Latin>
+						<MiddleName_Latin xsi:nil="true"/>
+						<LastName_Latin>$lastName</LastName_Latin>
+						<FirstName_Khmer>N/A</FirstName_Khmer>
+						<MiddleName_Khmer xsi:nil="true"/>
+						<LastName_Khmer>N/A</LastName_Khmer>
+					</Name> 
+		#if($tran.dob)                                  
+					<DateOfBirth>$tran.dob</DateOfBirth> 
+		#else                                  
+					<DateOfBirth/> 
+		#end                                  
+					<Identifier>$identifier</Identifier>
+					<Occupation>Other</Occupation>
+					<OccupationOther>N/A</OccupationOther>
+					<Sex>$tran.gender</Sex>
+				</Individual>
+			</ParticipantType>
+			<ParticipantRole>PLAYER</ParticipantRole>
+			<Address>
+				<BuildingNumber>N/A</BuildingNumber>
+				<StreetName>N/A</StreetName>
+				<StreetType/>
+				<GroupNumber/>
+				<Village/>
+				<Commune/>
+				<DistrictName/>
+				<Province/>
+				<POBox/>
+				<PostalCode/>
+				<CountryCodeType/>
+				<AddressTemp1 xsi:nil="true"/>
+				<AddressTemp2 xsi:nil="true"/>
+				<AddressTemp3 xsi:nil="true"/>
+			</Address>
+			<Phone>
+				<HomePhone>
+					<CountryCode xsi:nil="true"/>
+					<LocalNumber xsi:nil="true"/>
+				</HomePhone>
+				<BusinessPhone>
+					<CountryCode xsi:nil="true"/>
+					<LocalNumber xsi:nil="true"/>
+				</BusinessPhone>
+				<MobilePhone>
+					<CountryCode xsi:nil="true"/>
+					<LocalNumber xsi:nil="true"/>
+				</MobilePhone>
+			</Phone>
+		</TransactionParticipants> 
+		#set($nextId = $nextId + 1) 
+	#end 
+		</Report>
+</LCTR>

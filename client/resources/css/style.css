@@ -1,0 +1,9 @@
+.max-length-500 .x-form-item-body::after{
+    content: '(Maximum characters: 500)';
+    color: #919191;
+}
+
+.max-length-2000 .x-form-item-body::after{
+    content: '(Maximum characters: 500)';
+    color: #919191;
+}

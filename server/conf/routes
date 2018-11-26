@@ -1,0 +1,43 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+POST    /auth/login                                 controllers.AccountController.login
+GET     /auth/users                                 controllers.AccountController.getUsers
+
+GET     /api/v1/ctrform/:id                         controllers.CtrFormController.findCtrFormById(id: String)
+POST    /api/v1/ctrform/save                        controllers.CtrFormController.save()
+GET     /api/v1/ctrforms                            controllers.CtrFormController.list(filterSort: utils.FilterSort)
+POST    /api/v1/ctrform/exports/:exportType         controllers.CtrFormController.export(exportType: String)
+GET     /api/v1/ctrforms/transactions/single        controllers.CtrFormController.singleTransactions(dateFrom: Long, excludeCountry: Seq[String], amount: Float)
+GET     /api/v1/ctrforms/transactions/multi         controllers.CtrFormController.multiTransactions(dateFrom: Long, excludeCountry: Seq[String], amount: Float)
+GET     /api/v1/ctrforms/transactions/preivew       controllers.CtrFormController.CTRPreview(formIds: String)
+
+POST    /api/v1/submission/save                     controllers.SubmissionController.save()
+GET    /api/v1/submission/xml                       controllers.SubmissionController.xml()
+GET     /api/v1/submissions                         controllers.SubmissionController.list(filterSort: utils.FilterSort)
+
+POST    /api/v1/sirform/save                                controllers.SirFormController.save()
+GET     /api/v1/sirforms                                    controllers.SirFormController.list(filterSort: utils.FilterSort)
+
+
+POST    /api/v1/strform/save                                controllers.StrFormController.save()
+GET     /api/v1/strforms                                    controllers.StrFormController.list(filterSort: utils.FilterSort)
+
+
+GET     /api/v1/frmattachemnt/attachments                   controllers.UploadController.findFormAttachmentByFormId(formId: String)
+POST    /api/v1/frmattachment/upload                        controllers.UploadController.frmUploadFile()
+
+# Common request
+GET     /api/v1/components/lookup                   controllers.ComponentLookupController.getLookups(key: String)
+GET     /api/v1/players                             controllers.PlayerController.getPlayers(query: String, start: Int, limit: Int)
+GET     /api/v1/player/:id                          controllers.PlayerController.findPlayerById(id: String)
+GET     /api/v1/menus                               controllers.MenuController.getMenus()
+GET     /api/v1/locations                           controllers.LocationController.getLocationByLocnCode(locnType: String)
+POST    /api/v1/upload                              controllers.UploadController.uploadFile()
+GET    /api/v1/attachments                          controllers.UploadController.findAttachmentByFormId(formId: String)
+GET    /api/v1/activities                           controllers.ActivityController.activitiesByFormId(formId: String)
+GET    /api/v1/countries                            controllers.CountryController.getCountries()
+
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/﻿*file                              controllers.Assets.at(path="/public", file)
